@@ -10,10 +10,14 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
+    implementation(Deps.arrowCore)
+    implementation(Deps.arrowEffects)
+    implementation(Deps.arrowSyntax)
+    implementation(Deps.arrowTypeclasses)
     implementation(Deps.clikt)
+    implementation(Deps.koinCore)
 
-    testImplementation(kotlin("test"))
-    testImplementation(kotlin("test-junit"))
+    TestDeps.core.forEach(::testImplementation)
 }
 
 application {
