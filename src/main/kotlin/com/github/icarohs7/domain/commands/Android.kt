@@ -1,17 +1,16 @@
 package com.github.icarohs7.domain.commands
 
-import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.subcommands
+import com.github.icarohs7.domain.extensions.subcommandWithAlias
 
-class Android : CliktCommand() {
+class Android : BaseCommand() {
     override fun run(): Unit = Unit
 
     companion object {
-        fun launch(args: Array<String>) {
-            println(args.toList())
-            Android()
-                    .subcommands(New())
-                    .main(args)
-        }
+        fun launch(args: Array<String>) =
+                Android()
+                        .subcommands(New())
+                        .subcommandWithAlias(Generate.create(), "g")
+                        .main(args)
     }
 }
