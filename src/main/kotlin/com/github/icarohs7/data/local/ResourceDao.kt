@@ -3,6 +3,9 @@ package com.github.icarohs7.data.local
 import arrow.effects.IO
 import java.io.File
 import java.io.IOException
+import java.net.URLDecoder
+import java.util.jar.JarFile
+
 
 /**
  * Dao responsible of handling the resources and file
@@ -47,12 +50,51 @@ class ResourceDao(private val resourcesRootDir: String, private val outputRootDi
     }
 
     /**
+     * Copy a directory from the running jar file to an external directory
+     * within the [outputRootDir]
+     */
+    fun copyResourceFolderToDirectory(jarDir: String, destDir: String = "") {
+        val jar = getCurrentJarFile()
+        val entries = jar.entries().iterator()
+
+        entries.forEach { entry ->
+            if (entry.name.startsWith("$jarDir/") && !entry.isDirectory) {
+                val dest = File("$outputRootDir/$destDir", entry.name.substring(jarDir.length + 1))
+                val parent = dest.parentFile
+                parent?.mkdirs()
+
+                jar.getInputStream(entry).use { inputStream ->
+                    dest.outputStream().use { outputStream ->
+                        inputStream.reader().useLines { lines ->
+                            outputStream.writer().use { writer ->
+                                lines.forEach { line ->
+                                    writer.appendln(line)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Return an instance representing the running
+     * jar file
+     */
+    private fun getCurrentJarFile(): JarFile {
+        val path = javaClass.protectionDomain.codeSource.location.path
+        val decodedPath = URLDecoder.decode(path, "UTF-8")
+        return JarFile(decodedPath)
+    }
+
+    /**
      * Return the content of the given resource
      * as a String or null if it wasn't be found
      */
     private fun get(resName: String): String? {
         return javaClass.getResourceAsStream("/$resourcesRootDir/$resName").use { inputStream ->
-            inputStream?.bufferedReader()?.useLines { lines ->
+            inputStream?.reader()?.useLines { lines ->
                 buildString {
                     lines.forEach { line ->
                         appendln(line)
