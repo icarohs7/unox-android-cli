@@ -25,7 +25,7 @@ class Module(group: String, private val name: String) {
      * save the on disk
      */
     fun createStandaloneOnDisk(): IO<Unit> {
-        return IO<Unit> {
+        return IO {
             ResourceDao.use("childmodule/standalone", name) {
                 fixContents(copy("build.gradle.kts"))
             }
@@ -36,9 +36,26 @@ class Module(group: String, private val name: String) {
 
                 val originPackageContents = "childmodule/standalone/content/code"
                 fixContents(copyResourceFolderToDirectory(originPackageContents, "kotlin/$packageDestination"))
+
+                File("$name/src/test/kotlin/$packageDestination").mkdirs()
+            }
+        }
+    }
+
+    fun createLibraryOnDisk(): IO<Unit> {
+        return IO {
+            ResourceDao.use("childmodule/library", name) {
+                fixContents(copy("build.gradle.kts"))
             }
 
-            File("$name/src/test/kotlin/$packageDestination").mkdirs()
+            ResourceDao.use("childmodule/library/content", "$name/src/main") {
+                fixContents(copy("AndroidManifest.xml"))
+                File("$name/src/main/kotlin/$packageDestination/data").mkdirs()
+                File("$name/src/main/kotlin/$packageDestination/domain").mkdirs()
+                File("$name/src/main/kotlin/$packageDestination/presentation").mkdirs()
+                File("$name/src/main/res").mkdirs()
+                File("$name/src/test/kotlin/$packageDestination").mkdirs()
+            }
         }
     }
 
