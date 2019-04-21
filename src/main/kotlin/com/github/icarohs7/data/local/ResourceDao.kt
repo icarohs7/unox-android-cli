@@ -17,8 +17,8 @@ class ResourceDao(private val resourcesRootDir: String, private val outputRootDi
      * Copy the resource with the given [fileAndResName]
      * to a file with the same name in the [outputRootDir]
      */
-    fun copy(fileAndResName: String) {
-        fileAndResName copyInto fileAndResName
+    fun copy(fileAndResName: String): File {
+        return fileAndResName copyInto fileAndResName
     }
 
     /**
@@ -26,15 +26,15 @@ class ResourceDao(private val resourcesRootDir: String, private val outputRootDi
      * to a file named after the [fileName] parameter
      * in the [outputRootDir]
      */
-    infix fun String.copyInto(fileName: String) {
-        createFromResource(this, fileName).unsafeRunSync()
+    infix fun String.copyInto(fileName: String): File {
+        return createFromResource(this, fileName).unsafeRunSync()
     }
 
     /**
      * Copy the contents of the given resource to an
      * output file in the [outputRootDir]
      */
-    private fun createFromResource(resourceName: String, outputFileName: String): IO<Unit> {
+    private fun createFromResource(resourceName: String, outputFileName: String): IO<File> {
         return IO {
             val resData = get(resourceName) ?: throw IOException("resource $resourceName not found")
             val outFile = File(outputRootDir, outputFileName)
@@ -45,7 +45,7 @@ class ResourceDao(private val resourcesRootDir: String, private val outputRootDi
             if (!wasCreated)
                 throw IOException("Couldn't create $outputFileName")
 
-            outFile.writeText(resData)
+            outFile.apply { writeText(resData) }
         }
     }
 
@@ -53,10 +53,9 @@ class ResourceDao(private val resourcesRootDir: String, private val outputRootDi
      * Copy a directory from the running jar file to an external directory
      * within the [outputRootDir]
      */
-    fun copyResourceFolderToDirectory(jarDir: String, destDir: String = "") {
+    fun copyResourceFolderToDirectory(jarDir: String, destDir: String = ""): File {
         val jar = getCurrentJarFile()
         val entries = jar.entries().iterator()
-
         entries.forEach { entry ->
             if (entry.name.startsWith("$jarDir/") && !entry.isDirectory) {
                 val dest = File("$outputRootDir/$destDir", entry.name.substring(jarDir.length + 1))
@@ -76,6 +75,9 @@ class ResourceDao(private val resourcesRootDir: String, private val outputRootDi
                 }
             }
         }
+
+        jar.close()
+        return File("$outputRootDir/$destDir")
     }
 
     /**

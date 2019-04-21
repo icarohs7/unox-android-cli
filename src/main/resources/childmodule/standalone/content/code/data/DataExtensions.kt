@@ -1,0 +1,3 @@
+package
+
+{ { module.completeName } }.data
