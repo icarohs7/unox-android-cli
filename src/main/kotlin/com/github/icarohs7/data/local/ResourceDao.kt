@@ -23,7 +23,7 @@ class ResourceDao(private val resourcesRootDir: String, private val outputRootDi
 
     /**
      * Copy the resource with name got from the receiver String
-     * to a file with named after the [fileName] parameter
+     * to a file named after the [fileName] parameter
      * in the [outputRootDir]
      */
     infix fun String.copyInto(fileName: String) {

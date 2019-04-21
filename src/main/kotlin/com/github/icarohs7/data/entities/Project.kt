@@ -3,7 +3,6 @@ package com.github.icarohs7.data.entities
 import arrow.effects.IO
 import com.github.icarohs7.data.local.ResourceDao
 import org.eclipse.jgit.api.Git
-import org.eclipse.jgit.util.FileUtils
 import java.io.File
 
 /**
@@ -19,6 +18,7 @@ class Project(private val name: String) {
             ResourceDao.use("rootmodule", name) {
                 copyResourceFolderToDirectory("rootmodule")
                 cloneBuildSrc().unsafeRunSync()
+                cloneCoreLibrary().unsafeRunSync()
             }
         }
     }
@@ -37,24 +37,23 @@ class Project(private val name: String) {
                     .setDirectory(out)
                     .call()
                     .close()
-
-            deleteUnnecessaryClonedFiles()
         }
     }
 
     /**
-     * Used to remove some unnecessary files from
-     * the cloned repository, like LICENCE and
-     * README.MD
+     * Clone the corelibrary folder from the repository
+     * [unox-android-corelibrary](https://github.com/icarohs7/unox-android-corelibrary)
      */
-    private fun deleteUnnecessaryClonedFiles() {
-        val rootDir = File(name, "buildSrc")
-        val delete = { name: String -> File(rootDir, name).delete() }
+    private fun cloneCoreLibrary(): IO<Unit> {
+        return IO {
+            val out = File(name, "corelibrary")
+            out.mkdirs()
 
-        delete("LICENSE")
-        delete("README.md")
-        delete(".gitignore")
-        delete("push-updates.py")
-        FileUtils.delete(File(rootDir, ".git"), FileUtils.RECURSIVE)
+            Git.cloneRepository()
+                    .setURI("https://github.com/icarohs7/unox-android-corelibrary")
+                    .setDirectory(out)
+                    .call()
+                    .close()
+        }
     }
 }
