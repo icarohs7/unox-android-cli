@@ -12,7 +12,8 @@ import java.io.File
  * Represent a child module of a project
  */
 class Module(group: String, private val name: String) {
-    val completeName = "$group.$name"
+    private val completeName = "$group.$name"
+    private val packageDestination = completeName.replace(".", "/")
     private val replaces: List<Tuple2<String, String>> = listOf(
             "module.group" to group,
             "module.name" to name,
@@ -24,19 +25,20 @@ class Module(group: String, private val name: String) {
      * save the on disk
      */
     fun createStandaloneOnDisk(): IO<Unit> {
-        return IO {
+        return IO<Unit> {
             ResourceDao.use("childmodule/standalone", name) {
                 fixContents(copy("build.gradle.kts"))
             }
 
-            ResourceDao.use("childmodule/standalone/content", "$name/main") {
+            ResourceDao.use("childmodule/standalone/content", "$name/src/main") {
                 fixContents(copy("AndroidManifest.xml"))
                 fixContents(copyResourceFolderToDirectory("childmodule/standalone/content/res", "/res"))
 
                 val originPackageContents = "childmodule/standalone/content/code"
-                val packageDestination = completeName.replace(".", "/")
-                fixContents(copyResourceFolderToDirectory(originPackageContents, packageDestination))
+                fixContents(copyResourceFolderToDirectory(originPackageContents, "kotlin/$packageDestination"))
             }
+
+            File("$name/src/test/kotlin/$packageDestination").mkdirs()
         }
     }
 
