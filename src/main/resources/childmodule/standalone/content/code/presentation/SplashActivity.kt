@@ -1,6 +1,4 @@
-package
-
-{ { module.completeName } }.presentation
+package {{module.completeName}}.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 

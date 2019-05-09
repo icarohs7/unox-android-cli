@@ -1,6 +1,4 @@
-package
-
-{ { module.completeName } }.presentation.main
+package {{module.completeName}}.presentation.main
 
 import base.corelibrary.presentation.main.BaseMainActivity
 import com.mikepenz.materialdrawer.Drawer

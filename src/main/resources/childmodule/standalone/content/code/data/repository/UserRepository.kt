@@ -1,8 +1,6 @@
-package
+package {{module.completeName}}.data.repository
 
 import arrow.effects.IO
-
-{ { module.completeName } }.data .repository
 
 import arrow.effects.IO
 import base.corelibrary.data.entities.User

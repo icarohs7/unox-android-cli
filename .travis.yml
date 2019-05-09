@@ -1,4 +1,4 @@
-language: android
+language: java
 jdk: oraclejdk8
 sudo: false
 
@@ -10,19 +10,6 @@ cache:
     directories:
         - $HOME/.m2
         - $HOME/.gradle/wrapper/
-
-android:
-    components:
-        - tools
-        - platform-tools
-        - tools
-        - build-tools-28.0.3
-        - android-28
-        - extra-google-m2repository
-        - extra-android-m2repository
-
-    licenses:
-        - '.+'
 
 before_install:
     - chmod +x gradlew

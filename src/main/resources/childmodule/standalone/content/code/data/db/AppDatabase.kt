@@ -1,6 +1,4 @@
-package
-
-{ { module.completeName } }.data .db
+package {{module.completeName}}.data.db
 
 //import androidx.room.Database
 //import androidx.room.RoomDatabase

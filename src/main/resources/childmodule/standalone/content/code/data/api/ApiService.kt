@@ -1,6 +1,4 @@
-package
-
-{ { module.completeName } }.data .api
+package {{module.completeName}}.data.api
 
 /**
  * Access to the server

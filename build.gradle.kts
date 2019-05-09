@@ -16,8 +16,8 @@ tasks.withType<KotlinCompile> {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    implementation(Deps.arrowCore)
-    implementation(Deps.arrowEffects)
+    implementation(Deps.arrowCoreData)
+    implementation(Deps.arrowEffectsIoExtensions)
     implementation(Deps.arrowSyntax)
     implementation(Deps.arrowTypeclasses)
     implementation(Deps.clikt)

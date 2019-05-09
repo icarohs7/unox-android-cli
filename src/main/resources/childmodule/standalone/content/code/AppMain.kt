@@ -1,6 +1,4 @@
-package
-
-{ { module.completeName } }
+package {{module.completeName}}
 
 import base.corelibrary.BaseApplication
 import base.corelibrary.presentation.AppView

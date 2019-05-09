@@ -1,3 +1,1 @@
-package
-
-{ { module.completeName } }.data
+package {{module.completeName}}.data

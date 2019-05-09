@@ -1,5 +1,4 @@
 include(":corelibrary")
-//include(":authresources")
 
 pluginManagement {
     resolutionStrategy {
