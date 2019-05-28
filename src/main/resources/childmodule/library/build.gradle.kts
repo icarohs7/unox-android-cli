@@ -12,7 +12,7 @@ android {
 }
 
 dependencies {
-    api(project(":corelibrary"))
+    //api(project(":corelibrary"))
 
     AndroidKaptDeps.core.forEach(::kapt)
 }
