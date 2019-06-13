@@ -2,6 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="{{module.completeName}}">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".AppMain"
         android:allowBackup="true"
@@ -21,6 +23,4 @@
         <activity android:name=".presentation.main.MainActivity" />
         <activity android:name=".presentation.LoginActivity" />
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

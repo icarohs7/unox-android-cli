@@ -1,15 +1,13 @@
 package {{module.completeName}}.data.repository
 
-import arrow.effects.IO
-
-import arrow.effects.IO
+import arrow.core.Try
 import base.corelibrary.data.entities.User
 import base.corelibrary.presentation.CoreNavigation
-import com.github.icarohs7.unoxandroid.sideEffectBg
+import com.github.icarohs7.unoxcore.tryBg
 
 class UserRepository {
-    suspend fun logout(): IO<Unit> {
-        return sideEffectBg {
+    suspend fun logout(): Try<Unit> {
+        return tryBg {
             User.clear()
             CoreNavigation.loginActivity()
         }
