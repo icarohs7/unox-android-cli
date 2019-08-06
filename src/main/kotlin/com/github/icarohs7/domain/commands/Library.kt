@@ -2,6 +2,7 @@ package com.github.icarohs7.domain.commands
 
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.icarohs7.data.entities.Module
+import com.github.icarohs7.domain.extensions.not
 
 /**
  * Used to generate new library modules
@@ -15,7 +16,7 @@ class Library private constructor() : BaseCommand("Generate a new library module
         val parts = moduleName.split(".")
         val group = parts.dropLast(1).joinToString(separator = ".")
         val module = parts.last()
-        Module(group, module).createLibraryOnDisk().unsafeRunSync()
+        !!Module(group, module).createLibraryOnDisk()
     }
 
     companion object {

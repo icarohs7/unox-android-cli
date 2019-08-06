@@ -1,6 +1,7 @@
 package com.github.icarohs7.data.local
 
-import arrow.effects.IO
+import arrow.core.Try
+import com.github.icarohs7.domain.extensions.not
 import java.io.File
 import java.io.IOException
 import java.net.URLDecoder
@@ -27,15 +28,15 @@ class ResourceDao(private val resourcesRootDir: String, private val outputRootDi
      * in the [outputRootDir]
      */
     infix fun String.copyInto(fileName: String): File {
-        return createFromResource(this, fileName).unsafeRunSync()
+        return !!createFromResource(this, fileName)
     }
 
     /**
      * Copy the contents of the given resource to an
      * output file in the [outputRootDir]
      */
-    private fun createFromResource(resourceName: String, outputFileName: String): IO<File> {
-        return IO {
+    private fun createFromResource(resourceName: String, outputFileName: String): Try<File> {
+        return Try {
             val resData = get(resourceName) ?: throw IOException("resource $resourceName not found")
             val outFile = File(outputRootDir, outputFileName)
 

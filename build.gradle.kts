@@ -17,9 +17,6 @@ tasks.withType<KotlinCompile> {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation(Deps.arrowCoreData)
-    implementation(Deps.arrowEffectsIoExtensions)
-    implementation(Deps.arrowSyntax)
-    implementation(Deps.arrowTypeclasses)
     implementation(Deps.clikt)
 
     implementation("org.eclipse.jgit:org.eclipse.jgit:5.3.0.201903130848-r")

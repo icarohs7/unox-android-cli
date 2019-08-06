@@ -1,7 +1,8 @@
 package com.github.icarohs7.data.entities
 
-import arrow.effects.IO
+import arrow.core.Try
 import com.github.icarohs7.data.local.ResourceDao
+import com.github.icarohs7.domain.extensions.not
 import org.eclipse.jgit.api.Git
 import java.io.File
 
@@ -13,12 +14,12 @@ class Project(private val name: String) {
      * Create the project files and
      * save the on disk
      */
-    fun createOnDisk(): IO<Unit> {
-        return IO {
+    fun createOnDisk(): Try<Unit> {
+        return Try {
             ResourceDao.use("rootmodule", name) {
                 copyResourceFolderToDirectory("rootmodule")
-                cloneBuildSrc().unsafeRunSync()
-                cloneCoreLibrary().unsafeRunSync()
+                !!cloneBuildSrc()
+                !!cloneCoreLibrary()
             }
         }
     }
@@ -27,8 +28,8 @@ class Project(private val name: String) {
      * Clone the buildSrc folder from the repository
      * [unox-buildsrc](https://github.com/icarohs7/unox-buildsrc)
      */
-    private fun cloneBuildSrc(): IO<Unit> {
-        return IO {
+    private fun cloneBuildSrc(): Try<Unit> {
+        return Try {
             val out = File(name, "buildSrc")
             out.mkdirs()
 
@@ -44,8 +45,8 @@ class Project(private val name: String) {
      * Clone the corelibrary folder from the repository
      * [unox-android-corelibrary](https://github.com/icarohs7/unox-android-corelibrary)
      */
-    private fun cloneCoreLibrary(): IO<Unit> {
-        return IO {
+    private fun cloneCoreLibrary(): Try<Unit> {
+        return Try {
             val out = File(name, "corelibrary")
             out.mkdirs()
 

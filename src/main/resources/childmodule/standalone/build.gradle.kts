@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    defaultSettings()
+    defaultSettings(project)
     defaultConfig {
         applicationId = "{{module.completeName}}"
         versionCode = 1

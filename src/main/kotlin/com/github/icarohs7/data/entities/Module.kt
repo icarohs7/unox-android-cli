@@ -1,8 +1,8 @@
 package com.github.icarohs7.data.entities
 
+import arrow.core.Try
 import arrow.core.Tuple2
 import arrow.core.toTuple2
-import arrow.effects.IO
 import com.github.icarohs7.data.local.ResourceDao
 import com.github.icarohs7.domain.extensions.recursiveChildrenSequence
 import com.github.icarohs7.domain.extensions.replaceCurlyVariables
@@ -24,8 +24,8 @@ class Module(group: String, private val name: String) {
      * Create the project files and
      * save the on disk
      */
-    fun createStandaloneOnDisk(): IO<Unit> {
-        return IO {
+    fun createStandaloneOnDisk(): Try<Unit> {
+        return Try {
             ResourceDao.use("childmodule/standalone", name) {
                 fixContents(copy("build.gradle.kts"))
             }
@@ -42,8 +42,8 @@ class Module(group: String, private val name: String) {
         }
     }
 
-    fun createLibraryOnDisk(): IO<Unit> {
-        return IO {
+    fun createLibraryOnDisk(): Try<Unit> {
+        return Try {
             ResourceDao.use("childmodule/library", name) {
                 fixContents(copy("build.gradle.kts"))
             }
