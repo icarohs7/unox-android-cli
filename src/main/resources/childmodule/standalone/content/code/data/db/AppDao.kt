@@ -1,10 +1,9 @@
 package {{module.completeName}}.data.db
 
+//import androidx.lifecycle.LiveData
 //import androidx.room.Dao
 //import androidx.room.Query
-//import base.corelibrary.data.local.BaseDao
-//import com.github.icarohs7.unoxandroidarch.data.local.BaseDao
-//import io.reactivex.Flowable
+//import base.dataresources.data.db.BaseDao
 //
 //@Dao
 //interface TYPEHEREDao : BaseDao<TYPEHERE> {
@@ -15,5 +14,5 @@ package {{module.completeName}}.data.db
 //    override fun getAll(): List<TYPEHERE>
 //
 //    @Query("SELECT * FROM TYPEHERE")
-//    override fun flowable(): Flowable<List<TYPEHERE>>
+//    override fun flowable(): LiveData<List<TYPEHERE>>
 //}
