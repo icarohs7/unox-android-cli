@@ -1,6 +1,6 @@
 package {{module.completeName}}.data.db
 
-//import androidx.lifecycle.LiveData
+//import kotlinx.coroutines.flow.Flow
 //import androidx.room.Dao
 //import androidx.room.Query
 //import base.dataresources.data.db.BaseDao
@@ -8,11 +8,8 @@ package {{module.completeName}}.data.db
 //@Dao
 //interface TYPEHEREDao : BaseDao<TYPEHERE> {
 //    @Query("DELETE FROM TYPEHERE")
-//    override fun eraseTable()
+//    override suspend fun eraseTable()
 //
 //    @Query("SELECT * FROM TYPEHERE")
-//    override fun getAll(): List<TYPEHERE>
-//
-//    @Query("SELECT * FROM TYPEHERE")
-//    override fun flowable(): LiveData<List<TYPEHERE>>
+//    override fun flow(): Flow<List<TYPEHERE>>
 //}
