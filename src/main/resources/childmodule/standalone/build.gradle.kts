@@ -18,6 +18,8 @@ android {
 
 dependencies {
     implementation(project(":corelibrary"))
+    implementation(res("data"))
+    implementation(res("drawer"))
 
     AndroidKaptDeps.core.forEach(::kapt)
 }

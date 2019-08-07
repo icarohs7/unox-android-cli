@@ -1,5 +1,5 @@
 package {{module.completeName}}.presentation.activities.main
 
-import base.corelibrary.presentation.main.BaseMainDrawerConfig
+import base.drawerresources.presentation.BaseDrawerConfig
 
-class DrawerConfig : BaseMainDrawerConfig<MainActivity>({})
+class DrawerConfig : BaseDrawerConfig<MainActivity>({})
