@@ -11,5 +11,8 @@ package {{module.completeName}}.data.db
 //    override suspend fun eraseTable()
 //
 //    @Query("SELECT * FROM TYPEHERE")
+//    suspend fun getAll(): List<TYPEHERE>
+//
+//    @Query("SELECT * FROM TYPEHERE")
 //    override fun flow(): Flow<List<TYPEHERE>>
 //}
