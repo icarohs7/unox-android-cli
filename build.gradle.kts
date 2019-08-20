@@ -15,7 +15,7 @@ tasks.withType<KotlinCompile> {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8"))
+    implementation(Deps.kotlinStdLibJdk8)
     implementation(Deps.arrowCoreData)
     implementation(Deps.clikt)
     implementation(Deps.koinCore)

@@ -26,15 +26,15 @@ class AndroidModule(group: String, private val name: String) {
      */
     fun createStandaloneOnDisk(): Try<Unit> {
         return Try {
-            ResourceDao.use("childmodule/standalone", name) {
+            ResourceDao.use("androidmodule/standalone", name) {
                 fixContents(copy("build.gradle.kts"))
             }
 
-            ResourceDao.use("childmodule/standalone/content", "$name/src/main") {
+            ResourceDao.use("androidmodule/standalone/content", "$name/src/main") {
                 fixContents(copy("AndroidManifest.xml"))
-                fixContents(copyResourceFolderToDirectory("childmodule/standalone/content/res", "/res"))
+                fixContents(copyResourceFolderToDirectory("/standalone/content/res", "/res"))
 
-                val originPackageContents = "childmodule/standalone/content/code"
+                val originPackageContents = "androidmodule/standalone/content/code"
                 fixContents(copyResourceFolderToDirectory(originPackageContents, "kotlin/$packageDestination"))
 
                 File("$name/src/test/kotlin/$packageDestination").mkdirs()
@@ -44,11 +44,11 @@ class AndroidModule(group: String, private val name: String) {
 
     fun createLibraryOnDisk(): Try<Unit> {
         return Try {
-            ResourceDao.use("childmodule/library", name) {
+            ResourceDao.use("androidmodule/library", name) {
                 fixContents(copy("build.gradle.kts"))
             }
 
-            ResourceDao.use("childmodule/library/content", "$name/src/main") {
+            ResourceDao.use("androidmodule/library/content", "$name/src/main") {
                 fixContents(copy("AndroidManifest.xml"))
                 File("$name/src/main/kotlin/$packageDestination/data").mkdirs()
                 File("$name/src/main/kotlin/$packageDestination/domain").mkdirs()
