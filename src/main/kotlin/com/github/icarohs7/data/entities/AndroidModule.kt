@@ -11,7 +11,7 @@ import java.io.File
 /**
  * Represent a child module of a project
  */
-class Module(group: String, private val name: String) {
+class AndroidModule(group: String, private val name: String) {
     private val completeName = "$group.$name"
     private val packageDestination = completeName.replace(".", "/")
     private val replaces: List<Tuple2<String, String>> = listOf(

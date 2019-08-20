@@ -20,8 +20,6 @@ dependencies {
     implementation(Deps.clikt)
     implementation(Deps.koinCore)
 
-    implementation("org.eclipse.jgit:org.eclipse.jgit:5.3.0.201903130848-r")
-
     TestDeps.core.forEach(::testImplementation)
 }
 

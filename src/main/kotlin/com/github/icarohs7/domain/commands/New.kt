@@ -7,7 +7,7 @@ import com.github.icarohs7.domain.extensions.not
 /**
  * Used to create new projects
  */
-class New private constructor() : BaseCommand("Create a new Android project") {
+class New private constructor() : BaseCommand("Create a new project") {
     private val projectName by argument(help = "Name of the project")
 
     override fun run() {

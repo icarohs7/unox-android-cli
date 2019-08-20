@@ -1,13 +1,13 @@
 package com.github.icarohs7.domain.commands
 
 import com.github.ajalt.clikt.parameters.arguments.argument
-import com.github.icarohs7.data.entities.Module
+import com.github.icarohs7.data.entities.AndroidModule
 import com.github.icarohs7.domain.extensions.not
 
 /**
  * Used to generate new application modules
  */
-class App private constructor() : BaseCommand("Generate a new app module") {
+class AndroidApp private constructor() : BaseCommand("Generate a new app module") {
     private val moduleName by argument(
             help = "Complete name of the module, including its group. e.g: com.github.user.module"
     )
@@ -16,12 +16,12 @@ class App private constructor() : BaseCommand("Generate a new app module") {
         val parts = moduleName.split(".")
         val group = parts.dropLast(1).joinToString(separator = ".")
         val module = parts.last()
-        !!Module(group, module).createStandaloneOnDisk()
+        !!AndroidModule(group, module).createStandaloneOnDisk()
     }
 
     companion object {
-        fun create(): App {
-            return App()
+        fun create(): AndroidApp {
+            return AndroidApp()
         }
     }
 }
