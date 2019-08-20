@@ -1,7 +1,7 @@
 package com.github.icarohs7.domain.commands
 
 import com.github.ajalt.clikt.parameters.arguments.argument
-import com.github.icarohs7.data.entities.AndroidModule
+import com.github.icarohs7.data.entities.Module
 import com.github.icarohs7.domain.extensions.not
 
 /**
@@ -16,7 +16,7 @@ class AndroidLibrary private constructor() : BaseCommand("Generate a new library
         val parts = moduleName.split(".")
         val group = parts.dropLast(1).joinToString(separator = ".")
         val module = parts.last()
-        !!AndroidModule(group, module).createLibraryOnDisk()
+        !!Module(group, module).createAndroidLibraryOnDisk()
     }
 
     companion object {

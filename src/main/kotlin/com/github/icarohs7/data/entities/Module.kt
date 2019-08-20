@@ -11,7 +11,7 @@ import java.io.File
 /**
  * Represent a child module of a project
  */
-class AndroidModule(group: String, private val name: String) {
+class Module(group: String, private val name: String) {
     private val completeName = "$group.$name"
     private val packageDestination = completeName.replace(".", "/")
     private val replaces: List<Tuple2<String, String>> = listOf(
@@ -24,17 +24,16 @@ class AndroidModule(group: String, private val name: String) {
      * Create the project files and
      * save the on disk
      */
-    fun createStandaloneOnDisk(): Try<Unit> {
+    fun createAndroidAppOnDisk(): Try<Unit> {
         return Try {
-            ResourceDao.use("androidmodule/standalone", name) {
-                fixContents(copy("build.gradle.kts"))
-            }
+            val rootDir = "androidmodule/standalone"
+            copyBuildscript(rootDir)
 
-            ResourceDao.use("androidmodule/standalone/content", "$name/src/main") {
+            ResourceDao.use("$rootDir/content", "$name/src/main") {
                 fixContents(copy("AndroidManifest.xml"))
                 fixContents(copyResourceFolderToDirectory("/standalone/content/res", "/res"))
 
-                val originPackageContents = "androidmodule/standalone/content/code"
+                val originPackageContents = "$rootDir/content/code"
                 fixContents(copyResourceFolderToDirectory(originPackageContents, "kotlin/$packageDestination"))
 
                 File("$name/src/test/kotlin/$packageDestination").mkdirs()
@@ -42,13 +41,12 @@ class AndroidModule(group: String, private val name: String) {
         }
     }
 
-    fun createLibraryOnDisk(): Try<Unit> {
+    fun createAndroidLibraryOnDisk(): Try<Unit> {
         return Try {
-            ResourceDao.use("androidmodule/library", name) {
-                fixContents(copy("build.gradle.kts"))
-            }
+            val rootDir = "androidmodule/library"
+            copyBuildscript(rootDir)
 
-            ResourceDao.use("androidmodule/library/content", "$name/src/main") {
+            ResourceDao.use("$rootDir/content", "$name/src/main") {
                 fixContents(copy("AndroidManifest.xml"))
                 File("$name/src/main/kotlin/$packageDestination/data").mkdirs()
                 File("$name/src/main/kotlin/$packageDestination/domain").mkdirs()
@@ -56,6 +54,31 @@ class AndroidModule(group: String, private val name: String) {
                 File("$name/src/main/res").mkdirs()
                 File("$name/src/test/kotlin/$packageDestination").mkdirs()
             }
+        }
+    }
+
+    fun createJvmJavaFxAppOnDisk(): Try<Unit> {
+        return Try {
+            val rootDir = "jvmmodule/javafxmodule"
+            copyBuildscript(rootDir)
+
+            ResourceDao.use("$rootDir/content", "$name/src/main") {
+                fixContents(copyResourceFolderToDirectory("/standalone/content/resources", "/resources"))
+
+                val originPackageContents = "$rootDir/content/code"
+                fixContents(copyResourceFolderToDirectory(originPackageContents, "kotlin/$packageDestination"))
+
+                File("$name/src/main/kotlin/$packageDestination/data").mkdirs()
+                File("$name/src/main/kotlin/$packageDestination/domain").mkdirs()
+                File("$name/src/main/kotlin/$packageDestination/presentation").mkdirs()
+                File("$name/src/test/kotlin/$packageDestination").mkdirs()
+            }
+        }
+    }
+
+    private fun copyBuildscript(rootDir: String) {
+        ResourceDao.use(rootDir, name) {
+            fixContents(copy("build.gradle.kts"))
         }
     }
 

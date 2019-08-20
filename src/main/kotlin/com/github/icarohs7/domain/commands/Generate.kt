@@ -12,7 +12,11 @@ class Generate private constructor() : BaseCommand("Generate a new component") {
     companion object {
         fun create(): Generate {
             return Generate()
-                    .subcommands(AndroidApp.create(), AndroidLibrary.create())
+                    .subcommands(
+                            AndroidApp.create(),
+                            AndroidLibrary.create(),
+                            JavafxApp.create()
+                    )
         }
     }
 }

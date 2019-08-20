@@ -7,7 +7,7 @@ import com.github.icarohs7.domain.extensions.not
 /**
  * Used to generate new application modules
  */
-class AndroidApp private constructor() : BaseCommand("Generate a new app module") {
+class JavafxApp private constructor() : BaseCommand("Generate a new javafx app module") {
     private val moduleName by argument(
             help = "Complete name of the module, including its group. e.g: com.github.user.module"
     )
@@ -16,12 +16,12 @@ class AndroidApp private constructor() : BaseCommand("Generate a new app module"
         val parts = moduleName.split(".")
         val group = parts.dropLast(1).joinToString(separator = ".")
         val module = parts.last()
-        !!Module(group, module).createAndroidAppOnDisk()
+        !!Module(group, module).createJvmJavaFxAppOnDisk()
     }
 
     companion object {
-        fun create(): AndroidApp {
-            return AndroidApp()
+        fun create(): JavafxApp {
+            return JavafxApp()
         }
     }
 }
