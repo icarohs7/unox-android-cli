@@ -1,7 +1,6 @@
 # unox-android-cli
-
-## Description
-CLI used to create Android projects and modules
+[![Actions Status](https://github.com/icarohs7/unox-android-cli/workflows/ci/badge.svg)](
+https://github.com/icarohs7/unox-android-cli/actions)
 
 ## Installing
 - Build the library fatJar with the command:
@@ -13,24 +12,22 @@ gradle shadowJar
 - Add this folder to the Windows path
 
 ## Usage
-- Creating a new Android project
+- Creating a new project
 ```
 nd new $projectName
 ```
-A folder with the given $projectName will be created, containing a ci config file for Travis and Gitlab CIs, buildscript files and some
-default files for gradle, i.e gradle.properties and local.properties. Also, [buildSrc](https://github.com/icarohs7/unox-buildsrc)
-and [corelibrary](https://github.com/icarohs7/unox-android-corelibrary) modules are cloned from their respective repositories and added
-to the project.
 
-- Creating a new app module
+- Creating a new android app module
 ```
-nd generate app $moduleName
+nd generate androidapp $moduleName
 ```
-Create a folder with the last part of the $moduleName, e.g the folder awesomeapp will be created with the $moduleName
-com.company.awesomeapp. Some basic infrastructure will also be added to the module, based on the architecture I use on my projects.
 
-- Creating a new library module
+- Creating a new android library module
 ```
-nd generate library $moduleName
+nd generate androidlibrary $moduleName
 ```
-Uses the same rules as the app generation command, but creating only a build file, a manifest and some empty folders.
+
+- Creating a new javafx desktop app module
+```
+nd generate javafxapp $moduleName
+```
