@@ -26,12 +26,12 @@ class Module(group: String, private val name: String) {
      */
     fun createAndroidAppOnDisk(): Try<Unit> {
         return Try {
-            val rootDir = "androidmodule/standalone"
+            val rootDir = "androidapp"
             copyBuildscript(rootDir)
 
             ResourceDao.use("$rootDir/content", "$name/src/main") {
                 fixContents(copy("AndroidManifest.xml"))
-                fixContents(copyResourceFolderToDirectory("/standalone/content/res", "/res"))
+                fixContents(copyResourceFolderToDirectory("$rootDir/content/res", "/res"))
 
                 val originPackageContents = "$rootDir/content/code"
                 fixContents(copyResourceFolderToDirectory(originPackageContents, "kotlin/$packageDestination"))
@@ -43,7 +43,7 @@ class Module(group: String, private val name: String) {
 
     fun createAndroidLibraryOnDisk(): Try<Unit> {
         return Try {
-            val rootDir = "androidmodule/library"
+            val rootDir = "androidlibrary"
             copyBuildscript(rootDir)
 
             ResourceDao.use("$rootDir/content", "$name/src/main") {
@@ -59,11 +59,11 @@ class Module(group: String, private val name: String) {
 
     fun createJvmJavaFxAppOnDisk(): Try<Unit> {
         return Try {
-            val rootDir = "jvmmodule/javafxmodule"
+            val rootDir = "javafxapp"
             copyBuildscript(rootDir)
 
             ResourceDao.use("$rootDir/content", "$name/src/main") {
-                fixContents(copyResourceFolderToDirectory("/standalone/content/resources", "/resources"))
+                fixContents(copyResourceFolderToDirectory("$rootDir/resources", "/resources"))
 
                 val originPackageContents = "$rootDir/content/code"
                 fixContents(copyResourceFolderToDirectory(originPackageContents, "kotlin/$packageDestination"))
