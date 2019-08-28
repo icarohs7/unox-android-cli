@@ -2,10 +2,6 @@ package com.github.icarohs7.domain.commands
 
 import com.github.ajalt.clikt.core.subcommands
 
-/**
- * Used to generate new components, like
- * application and library modules
- */
 class Generate private constructor() : BaseCommand("Generate a new component") {
     override fun run(): Unit = Unit
 
@@ -15,7 +11,8 @@ class Generate private constructor() : BaseCommand("Generate a new component") {
                     .subcommands(
                             AndroidApp.create(),
                             AndroidLibrary.create(),
-                            JavafxApp.create()
+                            JavafxApp.create(),
+                            JavaMppLibrary.create()
                     )
         }
     }

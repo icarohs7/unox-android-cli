@@ -31,3 +31,8 @@ nd generate androidlibrary $moduleName
 ```
 nd generate javafxapp $moduleName
 ```
+
+- Creating a new multiplatform module with a default jvm source set
+```
+nd generate javampplibrary $moduleName
+```

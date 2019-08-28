@@ -17,13 +17,10 @@ class Module(group: String, private val name: String) {
     private val replaces: List<Tuple2<String, String>> = listOf(
             "module.group" to group,
             "module.name" to name,
+            "module.flatName" to name.replace("-",""),
             "module.completeName" to completeName
     ).map { it.toTuple2() }
 
-    /**
-     * Create the project files and
-     * save the on disk
-     */
     fun createAndroidAppOnDisk(): Try<Unit> {
         return Try {
             val rootDir = "androidapp"
@@ -59,20 +56,29 @@ class Module(group: String, private val name: String) {
 
     fun createJvmJavaFxAppOnDisk(): Try<Unit> {
         return Try {
-            val rootDir = "javafxapp"
-            copyBuildscript(rootDir)
+            copyContentsOfResDir("javafxapp")
+        }
+    }
 
-            ResourceDao.use("$rootDir/content", "$name/src/main") {
-                fixContents(copyResourceFolderToDirectory("$rootDir/resources", "/resources"))
+    fun createJvmMppLibraryOnDisk():Try<Unit> {
+        return Try {
+            copyContentsOfResDir("javampplibrary")
+        }
+    }
 
-                val originPackageContents = "$rootDir/content/code"
-                fixContents(copyResourceFolderToDirectory(originPackageContents, "kotlin/$packageDestination"))
+    private fun copyContentsOfResDir(rootDir: String) {
+        copyBuildscript(rootDir)
 
-                File("$name/src/main/kotlin/$packageDestination/data").mkdirs()
-                File("$name/src/main/kotlin/$packageDestination/domain").mkdirs()
-                File("$name/src/main/kotlin/$packageDestination/presentation").mkdirs()
-                File("$name/src/test/kotlin/$packageDestination").mkdirs()
-            }
+        ResourceDao.use("$rootDir/content", "$name/src/main") {
+            fixContents(copyResourceFolderToDirectory("$rootDir/resources", "/resources"))
+
+            val originPackageContents = "$rootDir/content/code"
+            fixContents(copyResourceFolderToDirectory(originPackageContents, "kotlin/$packageDestination"))
+
+            File("$name/src/main/kotlin/$packageDestination/data").mkdirs()
+            File("$name/src/main/kotlin/$packageDestination/domain").mkdirs()
+            File("$name/src/main/kotlin/$packageDestination/presentation").mkdirs()
+            File("$name/src/test/kotlin/$packageDestination").mkdirs()
         }
     }
 
