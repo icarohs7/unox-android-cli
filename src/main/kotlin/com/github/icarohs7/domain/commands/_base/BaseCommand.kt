@@ -1,4 +1,4 @@
-package com.github.icarohs7.domain.commands
+package com.github.icarohs7.domain.commands._base
 
 import com.github.ajalt.clikt.core.CliktCommand
 

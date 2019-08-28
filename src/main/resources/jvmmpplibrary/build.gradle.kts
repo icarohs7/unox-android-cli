@@ -16,7 +16,7 @@ kotlin {
     metadata { mavenPublication { artifactId = "$artifact-metadata" } }
     jvm {
         mavenPublication { artifactId = "$artifact" }
-        compilations.all { kotlinOptions.jvmTarget = "1.6" }
+        compilations.all { kotlinOptions.jvmTarget = "1.8" }
     }
 
     @Suppress("UNUSED_VARIABLE")
