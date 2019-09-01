@@ -13,7 +13,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".presentation.SplashActivity"
+            android:name=".presentation.activities.SplashActivity"
             android:theme="@style/FullscreenTheme.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +21,5 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.activities.main.MainActivity" />
-        <activity android:name=".presentation.activities.LoginActivity" />
     </application>
 </manifest>
