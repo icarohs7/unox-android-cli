@@ -14,7 +14,8 @@ class Generate private constructor() : BaseCommand("Generate a new component") {
                             AndroidLibrary(),
                             JavafxApp(),
                             JvmMppLibrary(),
-                            JvmLibrary()
+                            JvmLibrary(),
+                            KtorServerApp()
                     )
         }
     }

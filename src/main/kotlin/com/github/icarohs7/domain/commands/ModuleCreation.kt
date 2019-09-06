@@ -7,6 +7,7 @@ import com.github.icarohs7.domain.extensions.createAndroidLibraryOnDisk
 import com.github.icarohs7.domain.extensions.createJvmJavaFxAppOnDisk
 import com.github.icarohs7.domain.extensions.createJvmLibraryOnDisk
 import com.github.icarohs7.domain.extensions.createJvmMppLibraryOnDisk
+import com.github.icarohs7.domain.extensions.createKtorServerAppOnDisk
 
 class AndroidApp : BaseModuleCreationCommand("Generate a new app module") {
     override fun onCreateModule(module: Module) = module.createAndroidAppOnDisk()
@@ -26,4 +27,8 @@ class JvmMppLibrary : BaseModuleCreationCommand("Generate a new multiplatform mo
 
 class JvmLibrary : BaseModuleCreationCommand("Generate a jvm library module") {
     override fun onCreateModule(module: Module) = module.createJvmLibraryOnDisk()
+}
+
+class KtorServerApp : BaseModuleCreationCommand("Generate a ktor server app module") {
+    override fun onCreateModule(module: Module) = module.createKtorServerAppOnDisk()
 }

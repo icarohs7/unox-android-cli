@@ -24,7 +24,7 @@ fun Module.createJvmJavaFxAppOnDisk() {
     val rootDir = "javafxapp"
     copyContentsOfResDir(packageDestination, rootDir) {
         File("$name/src/main/resources").mkdirs()
-        fixContents(copyResourceFolderToDirectory("$rootDir/resources", "/resources"))
+        fixContents(copyResourceFolderToDirectory("$rootDir/content/resources", "/resources"))
     }
 }
 
@@ -32,7 +32,7 @@ fun Module.createJvmMppLibraryOnDisk() {
     val rootDir = "jvmmpplibrary"
     copyContentsOfResDir(packageDestination, rootDir) {
         File("$name/src/main/resources").mkdirs()
-        fixContents(copyResourceFolderToDirectory("$rootDir/resources", "/resources"))
+        fixContents(copyResourceFolderToDirectory("$rootDir/content/resources", "/resources"))
     }
 }
 
@@ -40,7 +40,15 @@ fun Module.createJvmLibraryOnDisk() {
     val rootDir = "jvmlibrary"
     copyContentsOfResDir(packageDestination, rootDir) {
         File("$name/src/main/resources").mkdirs()
-        fixContents(copyResourceFolderToDirectory("$rootDir/resources", "/resources"))
+        fixContents(copyResourceFolderToDirectory("$rootDir/content/resources", "/resources"))
+    }
+}
+
+fun Module.createKtorServerAppOnDisk() {
+    val rootDir = "ktorserverapp"
+    copyContentsOfResDir(packageDestination, rootDir) {
+        File("$name/src/main/resources").mkdirs()
+        fixContents(copyResourceFolderToDirectory("$rootDir/content/resources", "/resources"))
     }
 }
 
