@@ -10,7 +10,7 @@ group = "{{module.group}}"
 version = "0.0-dev01"
 
 application {
-    mainClassName = "io.ktor.server.netty.EngineMain"
+    mainClassName = "{{module.completeName}}.ApplicationKt"
 }
 
 dependencies {
