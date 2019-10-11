@@ -7,7 +7,7 @@ plugins {
     defaults.`android-module`
 }
 
-unoxAndroid {
+android {
     defaultConfig {
         applicationId = "{{module.completeName}}"
         versionCode = 1
@@ -16,7 +16,6 @@ unoxAndroid {
 }
 
 dependencies {
-    implementation(project(":corelibrary"))
     implementation(res("data"))
     implementation(res("drawer"))
 

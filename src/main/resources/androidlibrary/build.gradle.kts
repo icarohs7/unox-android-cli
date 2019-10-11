@@ -7,11 +7,8 @@ plugins {
     defaults.`android-module`
 }
 
-unoxAndroid {
-}
-
 dependencies {
-    //api(project(":corelibrary"))
+    //api(res("corext"))
 
     AndroidKaptDeps.core.forEach(::kapt)
 }
